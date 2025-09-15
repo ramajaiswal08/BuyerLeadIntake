@@ -1,34 +1,46 @@
-import { redirect, notFound } from "next/navigation"
-import { getCurrentUser } from "@/lib/auth/auth"
-import { db } from "@/lib/db"
-import { buyers, buyerHistory, users } from "@/lib/db/schema"
-import { eq, desc } from "drizzle-orm"
-import { BuyerForm } from "@/components/forms/buyer-form"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { formatDistanceToNow } from "date-fns"
+import { redirect, notFound } from "next/navigation";
+import { getCurrentUser } from "@/lib/auth/auth";
+import { db } from "@/lib/db";
+import { buyers, buyerHistory, users } from "@/lib/db/schema";
+import { eq, desc } from "drizzle-orm";
+import { BuyerForm } from "@/components/forms/buyer-form";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { formatDistanceToNow } from "date-fns";
 
 interface BuyerDetailPageProps {
-  params: Promise<{ id: string }>
+  params: Promise<{ id: string }>;
 }
 
-export default async function BuyerDetailPage({ params }: BuyerDetailPageProps) {
-  const { id } = await params
-  const user = await getCurrentUser()
+export default async function BuyerDetailPage({
+  params,
+}: BuyerDetailPageProps) {
+  const { id } = await params;
+  const user = await getCurrentUser();
   if (!user) {
-    redirect("/login")
+    redirect("/login");
   }
 
   // Get buyer data
-  const buyer = await db.select().from(buyers).where(eq(buyers.id, id)).limit(1)
+  const buyer = await db
+    .select()
+    .from(buyers)
+    .where(eq(buyers.id, id))
+    .limit(1);
 
   if (buyer.length === 0) {
-    notFound()
+    notFound();
   }
 
   // Check ownership
   if (buyer[0].ownerId !== user.id && user.role !== "admin") {
-    redirect("/buyers")
+    redirect("/buyers");
   }
 
   // Get history
@@ -43,7 +55,7 @@ export default async function BuyerDetailPage({ params }: BuyerDetailPageProps) 
     .leftJoin(users, eq(buyerHistory.changedBy, users.id))
     .where(eq(buyerHistory.buyerId, id))
     .orderBy(desc(buyerHistory.changedAt))
-    .limit(5)
+    .limit(5);
 
   return (
     <div className="space-y-6">
@@ -70,11 +82,19 @@ export default async function BuyerDetailPage({ params }: BuyerDetailPageProps) 
               </div>
               <div>
                 <p className="text-sm text-muted-foreground">Created</p>
-                <p className="text-sm">{formatDistanceToNow(new Date(buyer[0].createdAt), { addSuffix: true })}</p>
+                <p className="text-sm">
+                  {formatDistanceToNow(new Date(buyer[0].createdAt), {
+                    addSuffix: true,
+                  })}
+                </p>
               </div>
               <div>
                 <p className="text-sm text-muted-foreground">Last Updated</p>
-                <p className="text-sm">{formatDistanceToNow(new Date(buyer[0].updatedAt), { addSuffix: true })}</p>
+                <p className="text-sm">
+                  {formatDistanceToNow(new Date(buyer[0].updatedAt), {
+                    addSuffix: true,
+                  })}
+                </p>
               </div>
               {buyer[0].tags && buyer[0].tags.length > 0 && (
                 <div>
@@ -101,28 +121,37 @@ export default async function BuyerDetailPage({ params }: BuyerDetailPageProps) 
               {history.length > 0 ? (
                 <div className="space-y-4">
                   {history.map((change) => (
-                    <div key={change.id} className="border-l-2 border-muted pl-4">
+                    <div
+                      key={change.id}
+                      className="border-l-2 border-muted pl-4"
+                    >
                       <p className="text-sm font-medium">{change.changedBy}</p>
                       <p className="text-xs text-muted-foreground">
-                        {formatDistanceToNow(new Date(change.changedAt), { addSuffix: true })}
+                        {formatDistanceToNow(new Date(change.changedAt), {
+                          addSuffix: true,
+                        })}
                       </p>
                       <div className="mt-1 text-xs">
-                        {Object.entries(change.diff as Record<string, any>).map(([field, { old, new: newVal }]) => (
-                          <p key={field} className="text-muted-foreground">
-                            {field}: {old || "empty"} → {newVal || "empty"}
-                          </p>
-                        ))}
+                        {Object.entries(change.diff as Record<string, any>).map(
+                          ([field, { old, new: newVal }]) => (
+                            <p key={field} className="text-muted-foreground">
+                              {field}: {old || "empty"} → {newVal || "empty"}
+                            </p>
+                          )
+                        )}
                       </div>
                     </div>
                   ))}
                 </div>
               ) : (
-                <p className="text-sm text-muted-foreground">No changes recorded yet</p>
+                <p className="text-sm text-muted-foreground">
+                  No changes recorded yet
+                </p>
               )}
             </CardContent>
           </Card>
         </div>
       </div>
     </div>
-  )
+  );
 }

@@ -394,7 +394,7 @@ export function BuyerForm({ initialData, mode }: BuyerFormProps) {
 
           {/* Submit Buttons */}
           <div className="flex gap-4 pt-4">
-            <Button type="submit" disabled={isLoading}>
+            <Button className="bg-blue-500 hover:bg-gray-300 hover:text-blue-600" type="submit" disabled={isLoading}>
               {isLoading ? (
                 <>
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />

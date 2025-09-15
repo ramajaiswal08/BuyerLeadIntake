@@ -98,7 +98,7 @@ export function CSVExport() {
           </Alert>
         )}
 
-        <Button onClick={handleExport} disabled={isExporting}>
+        <Button className="bg-blue-600" onClick={handleExport} disabled={isExporting}>
           {isExporting ? (
             <>
               <Loader2 className="mr-2 h-4 w-4 animate-spin" />

@@ -79,13 +79,13 @@ export function BuyersFilters() {
               />
             </div>
             <div className="flex gap-2">
-              <Button asChild>
+              <Button asChild className="bg-blue-500 hover:bg-gray-300 hover:text-blue-600">
                 <Link href="/buyers/new">
-                  <Plus className="mr-2 h-4 w-4" />
+                  <Plus className="mr-2 h-4 w-4 " />
                   Add Lead
                 </Link>
               </Button>
-              <Button variant="outline" asChild>
+              <Button className="bg-white text-black hover:bg-gray-300 hover:text-blue-600" asChild>
                 <Link href="/buyers/import-export">Import/Export</Link>
               </Button>
             </div>
@@ -175,7 +175,7 @@ export function BuyersFilters() {
           {/* Clear Filters */}
           {hasActiveFilters && (
             <div className="flex items-center gap-2">
-              <Button variant="ghost" size="sm" onClick={clearFilters}>
+              <Button className="" size="sm" onClick={clearFilters}>
                 <X className="mr-2 h-4 w-4" />
                 Clear Filters
               </Button>
