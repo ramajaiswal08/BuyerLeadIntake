@@ -90,40 +90,6 @@ NEXT_PUBLIC_DEV_SUPABASE_REDIRECT_URL="http://localhost:3000"
 - **Email**: demo@example.com
 - **Password**: password
 
-## Database Schema
-
-### Users Table
-- `id` (UUID, Primary Key)
-- `email` (String, Unique)
-- `name` (String)
-- `password_hash` (String)
-- `role` (String, default: 'user')
-- `created_at`, `updated_at` (Timestamps)
-
-### Buyers Table (Leads)
-- `id` (UUID, Primary Key)
-- `full_name` (String, 2-80 chars)
-- `email` (String, optional)
-- `phone` (String, 10-15 digits, required)
-- `city` (Enum: Chandigarh|Mohali|Zirakpur|Panchkula|Other)
-- `property_type` (Enum: Apartment|Villa|Plot|Office|Retail)
-- `bhk` (Enum: 1|2|3|4|Studio, optional for non-residential)
-- `purpose` (Enum: Buy|Rent)
-- `budget_min`, `budget_max` (Integer, INR, optional)
-- `timeline` (Enum: 0-3m|3-6m|>6m|Exploring)
-- `source` (Enum: Website|Referral|Walk-in|Call|Other)
-- `status` (Enum: New|Qualified|Contacted|Visited|Negotiation|Converted|Dropped)
-- `notes` (Text, ≤1000 chars, optional)
-- `tags` (JSON Array, optional)
-- `owner_id` (UUID, Foreign Key to users)
-- `created_at`, `updated_at` (Timestamps)
-
-### Buyer History Table
-- `id` (UUID, Primary Key)
-- `buyer_id` (UUID, Foreign Key)
-- `changed_by` (UUID, Foreign Key to users)
-- `changed_at` (Timestamp)
-- `diff` (JSON, changed fields)
 
 ## API Endpoints
 
@@ -204,17 +170,6 @@ Key test coverage:
 
 ## Design Decisions
 
-### Architecture
-- **Server-Side Rendering**: Dashboard and lead list use SSR for better performance and SEO
-- **Client-Side Interactivity**: Forms and filters use client components for responsive UX
-- **API Routes**: RESTful API design with proper HTTP status codes and error handling
-
-### Security
-- **JWT Authentication**: Secure, stateless authentication with HTTP-only cookies
-- **Input Validation**: All inputs validated on both client and server
-- **SQL Injection Prevention**: Drizzle ORM provides built-in protection
-- **Rate Limiting**: Prevents API abuse and ensures fair usage
-
 ### Performance
 - **Database Indexing**: Strategic indexes on frequently queried columns
 - **Pagination**: Server-side pagination prevents memory issues with large datasets
@@ -229,14 +184,6 @@ Key test coverage:
 - **Mobile App**: Native mobile application for field agents
 - **Integration APIs**: Connect with popular real estate platforms
 
-## Support
 
-For issues or questions:
-1. Check the error logs in the browser console
-2. Verify environment variables are set correctly
-3. Ensure database connection is working
-4. Contact support at [support email]
 
-## License
 
-This project is licensed under the MIT License.
