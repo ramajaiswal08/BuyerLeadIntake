@@ -70,44 +70,44 @@ export default function HomePage() {
       </header>
 
       {/* Hero Section */}
-<section className="py-32 px-6">
-  <div className="container mx-auto flex flex-col-reverse lg:flex-row items-center gap-12">
-    {/* Left Side - Text */}
-    <div className="lg:w-1/2 text-center lg:text-left">
-      <h2 className="text-5xl font-extrabold text-gray-900 mb-6">
-        Take Full Control of Your Real Estate Leads
-      </h2>
-      <p className="text-gray-700 text-lg mb-10 max-w-lg">
-        Manage, track, and convert leads effortlessly. Our CRM is designed for real estate professionals who want efficiency and control.
-      </p>
-      <div className="flex justify-center lg:justify-start gap-4">
-        <Link href="/register">
-          <Button className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3">
-            Start Free Trial
-          </Button>
-        </Link>
-        <Link href="/login">
-          <Button
-            variant="outline"
-            className="border-blue-600 text-blue-600 px-6 py-3 hover:bg-blue-50"
-          >
-            Demo Login
-          </Button>
-        </Link>
-      </div>
-    </div>
+      <section className="py-32 px-6">
+        <div className="container mx-auto flex flex-col-reverse lg:flex-row items-center gap-12">
+          {/* Left Side - Text */}
+          <div className="lg:w-1/2 text-center lg:text-left">
+            <h2 className="text-5xl font-extrabold text-gray-900 mb-6">
+              Take Full Control of Your Real Estate Leads
+            </h2>
+            <p className="text-gray-700 text-lg mb-10 max-w-lg">
+              Manage, track, and convert leads effortlessly. Our CRM is designed
+              for real estate professionals who want efficiency and control.
+            </p>
+            <div className="flex justify-center lg:justify-start gap-4">
+              <Link href="/register">
+                <Button className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3">
+                  Start Free Trial
+                </Button>
+              </Link>
+              <Link href="/login">
+                <Button
+                  variant="outline"
+                  className="border-blue-600 text-blue-600 px-6 py-3 hover:bg-blue-50"
+                >
+                  Demo Login
+                </Button>
+              </Link>
+            </div>
+          </div>
 
-    {/* Right Side - Dashboard Image */}
-    <div className="lg:w-1/2 flex justify-center lg:justify-end">
-      <img
-        src="/dashboard-mockup.png" // replace with your dashboard image path
-        alt="Dashboard Mockup"
-        className="w-full max-w-md rounded-lg shadow-lg hover:scale-105 transition-transform duration-500"
-      />
-    </div>
-  </div>
-</section>
-
+          {/* Right Side - Dashboard Image */}
+          <div className="lg:w-1/2 flex justify-center lg:justify-end">
+            <img
+              src="/images/Dashboard.png"
+              alt="Dashboard Mockup"
+              className="w-full max-w-2xl rounded-lg shadow-lg hover:scale-105 transition-transform duration-500"
+            />
+          </div>
+        </div>
+      </section>
 
       {/* Stats / Highlights Section
       <section className="py-16 px-6">
